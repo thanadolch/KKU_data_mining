@@ -1,0 +1,487 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Untitled8.ipynb",
+      "provenance": [],
+      "authorship_tag": "ABX9TyOhxusUB1II0V79ZYhAurGy",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/thanadolch/KKU_data_mining/blob/master/joke\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "2dJSwycUZlgn"
+      },
+      "source": [
+        "import pandas as pd"
+      ],
+      "execution_count": 1,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "NQdwl7auchgF",
+        "outputId": "26c432bc-e45d-4a23-e24e-23f4ce0813b8",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "source": [
+        "from google.colab import drive\n",
+        "drive.mount('/content/drive')"
+      ],
+      "execution_count": 2,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "Drive already mounted at /content/drive; to attempt to forcibly remount, call drive.mount(\"/content/drive\", force_remount=True).\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "tMXh40r3ckW4"
+      },
+      "source": [
+        "path = '/content/drive/My Drive/DWDM_matrerial'\n",
+        "import os\n",
+        "data = pd.read_csv(os.path.join(path,'JK_Store.csv'),encoding='latin1')"
+      ],
+      "execution_count": 3,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "OQ0Y_NGbc582",
+        "outputId": "0664ba80-b6c4-44ef-cd47-83c5e2e206b3",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "source": [
+        "!pip install apyori"
+      ],
+      "execution_count": 4,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "Requirement already satisfied: apyori in /usr/local/lib/python3.6/dist-packages (1.1.2)\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "FDB2VokadKWU"
+      },
+      "source": [
+        "from apyori import apriori"
+      ],
+      "execution_count": 5,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "NW7o06tbdMTN",
+        "outputId": "6fd835bf-2eeb-499e-b713-a787e9153c2f",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 402
+        }
+      },
+      "source": [
+        "data"
+      ],
+      "execution_count": 6,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/html": [
+              "<div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>ï»¿product</th>\n",
+              "      <th>Prduct_Name</th>\n",
+              "      <th>Quantity</th>\n",
+              "      <th>Price</th>\n",
+              "      <th>Sales</th>\n",
+              "      <th>Store_id</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>71</td>\n",
+              "      <td>à¸à¸£à¸°à¸à¸²à¸©à¸¥à¸±à¸</td>\n",
+              "      <td>18</td>\n",
+              "      <td>5</td>\n",
+              "      <td>90</td>\n",
+              "      <td>2040000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>45</td>\n",
+              "      <td>à¸à¸²à¸§à¹à¸à¹à¸</td>\n",
+              "      <td>18</td>\n",
+              "      <td>40</td>\n",
+              "      <td>720</td>\n",
+              "      <td>3040000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>45</td>\n",
+              "      <td>à¸à¸²à¸§à¹à¸à¹à¸</td>\n",
+              "      <td>19</td>\n",
+              "      <td>40</td>\n",
+              "      <td>760</td>\n",
+              "      <td>1040000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>4</td>\n",
+              "      <td>à¸à¸´à¸à¸ªà¸­à¹à¸¡à¹</td>\n",
+              "      <td>6</td>\n",
+              "      <td>10</td>\n",
+              "      <td>60</td>\n",
+              "      <td>1040000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>43</td>\n",
+              "      <td>à¸à¸´à¸à¸à¸µà¸à¹à¸²à¸£à¹</td>\n",
+              "      <td>9</td>\n",
+              "      <td>20</td>\n",
+              "      <td>180</td>\n",
+              "      <td>1040000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>...</th>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>995</th>\n",
+              "      <td>9</td>\n",
+              "      <td>à¸à¸¥à¹à¸­à¸à¸à¸´à¸à¸ªà¸­</td>\n",
+              "      <td>13</td>\n",
+              "      <td>69</td>\n",
+              "      <td>897</td>\n",
+              "      <td>1040000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>996</th>\n",
+              "      <td>62</td>\n",
+              "      <td>à¹à¸¡à¹à¸à¸´à¸¡à¸à¹</td>\n",
+              "      <td>2</td>\n",
+              "      <td>30</td>\n",
+              "      <td>60</td>\n",
+              "      <td>1040000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>997</th>\n",
+              "      <td>8</td>\n",
+              "      <td>à¸à¸²à¸à¸²à¹à¸®à¹à¸¥à¸à¹</td>\n",
+              "      <td>20</td>\n",
+              "      <td>89</td>\n",
+              "      <td>1780</td>\n",
+              "      <td>1040000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>998</th>\n",
+              "      <td>4</td>\n",
+              "      <td>à¸à¸´à¸à¸ªà¸­à¹à¸¡à¹</td>\n",
+              "      <td>18</td>\n",
+              "      <td>10</td>\n",
+              "      <td>180</td>\n",
+              "      <td>2040000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>999</th>\n",
+              "      <td>54</td>\n",
+              "      <td>à¸à¸£à¸°à¸à¸´à¹à¸</td>\n",
+              "      <td>9</td>\n",
+              "      <td>30</td>\n",
+              "      <td>270</td>\n",
+              "      <td>2040000000</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "<p>1000 rows × 6 columns</p>\n",
+              "</div>"
+            ],
+            "text/plain": [
+              "     ï»¿product                     Prduct_Name  ...  Sales    Store_id\n",
+              "0            71     à¸à¸£à¸°à¸à¸²à¸©à¸¥à¸±à¸  ...     90  2040000000\n",
+              "1            45           à¸à¸²à¸§à¹à¸à¹à¸  ...    720  3040000000\n",
+              "2            45           à¸à¸²à¸§à¹à¸à¹à¸  ...    760  1040000000\n",
+              "3             4        à¸à¸´à¸à¸ªà¸­à¹à¸¡à¹  ...     60  1040000000\n",
+              "4            43  à¸à¸´à¸à¸à¸µà¸à¹à¸²à¸£à¹  ...    180  1040000000\n",
+              "..          ...                             ...  ...    ...         ...\n",
+              "995           9  à¸à¸¥à¹à¸­à¸à¸à¸´à¸à¸ªà¸­  ...    897  1040000000\n",
+              "996          62        à¹à¸¡à¹à¸à¸´à¸¡à¸à¹  ...     60  1040000000\n",
+              "997           8  à¸à¸²à¸à¸²à¹à¸®à¹à¸¥à¸à¹  ...   1780  1040000000\n",
+              "998           4        à¸à¸´à¸à¸ªà¸­à¹à¸¡à¹  ...    180  2040000000\n",
+              "999          54           à¸à¸£à¸°à¸à¸´à¹à¸  ...    270  2040000000\n",
+              "\n",
+              "[1000 rows x 6 columns]"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 6
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "vTPXoRnidijE",
+        "outputId": "3c619478-140b-4c4d-f423-1e42aacefbaa",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 431
+        }
+      },
+      "source": [
+        "Product1 = data.groupby('ï»¿product').sum('Sales').sort_values('Sales')\n",
+        "Product1"
+      ],
+      "execution_count": 7,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/html": [
+              "<div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>Quantity</th>\n",
+              "      <th>Price</th>\n",
+              "      <th>Sales</th>\n",
+              "      <th>Store_id</th>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>ï»¿product</th>\n",
+              "      <th></th>\n",
+              "      <th></th>\n",
+              "      <th></th>\n",
+              "      <th></th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>70</th>\n",
+              "      <td>99</td>\n",
+              "      <td>55</td>\n",
+              "      <td>495</td>\n",
+              "      <td>24440000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>11</th>\n",
+              "      <td>106</td>\n",
+              "      <td>55</td>\n",
+              "      <td>530</td>\n",
+              "      <td>20440000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>5</th>\n",
+              "      <td>108</td>\n",
+              "      <td>65</td>\n",
+              "      <td>540</td>\n",
+              "      <td>23520000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>71</th>\n",
+              "      <td>123</td>\n",
+              "      <td>50</td>\n",
+              "      <td>615</td>\n",
+              "      <td>18400000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>42</th>\n",
+              "      <td>132</td>\n",
+              "      <td>55</td>\n",
+              "      <td>660</td>\n",
+              "      <td>21440000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>...</th>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "      <td>...</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>69</th>\n",
+              "      <td>184</td>\n",
+              "      <td>2835</td>\n",
+              "      <td>34776</td>\n",
+              "      <td>27600000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>74</th>\n",
+              "      <td>185</td>\n",
+              "      <td>3980</td>\n",
+              "      <td>36815</td>\n",
+              "      <td>36800000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>26</th>\n",
+              "      <td>192</td>\n",
+              "      <td>3383</td>\n",
+              "      <td>38208</td>\n",
+              "      <td>34680000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>44</th>\n",
+              "      <td>241</td>\n",
+              "      <td>3600</td>\n",
+              "      <td>43380</td>\n",
+              "      <td>40800000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>65</th>\n",
+              "      <td>117</td>\n",
+              "      <td>8386</td>\n",
+              "      <td>70083</td>\n",
+              "      <td>28560000000</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "<p>79 rows × 4 columns</p>\n",
+              "</div>"
+            ],
+            "text/plain": [
+              "            Quantity  Price  Sales     Store_id\n",
+              "ï»¿product                                     \n",
+              "70                99     55    495  24440000000\n",
+              "11               106     55    530  20440000000\n",
+              "5                108     65    540  23520000000\n",
+              "71               123     50    615  18400000000\n",
+              "42               132     55    660  21440000000\n",
+              "...              ...    ...    ...          ...\n",
+              "69               184   2835  34776  27600000000\n",
+              "74               185   3980  36815  36800000000\n",
+              "26               192   3383  38208  34680000000\n",
+              "44               241   3600  43380  40800000000\n",
+              "65               117   8386  70083  28560000000\n",
+              "\n",
+              "[79 rows x 4 columns]"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 7
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "dtjjYAKXeVut",
+        "outputId": "7721a487-9bb7-4d3a-fb06-e6e4af1015e3",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "source": [
+        "Product2 = data.groupby('Store_id')['ï»¿product'].apply(list)\n",
+        "Product2"
+      ],
+      "execution_count": 8,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "Store_id\n",
+              "1040000000    [45, 4, 43, 12, 36, 51, 30, 17, 42, 65, 24, 15...\n",
+              "2040000000    [71, 50, 31, 76, 52, 67, 10, 41, 18, 60, 52, 3...\n",
+              "3040000000    [45, 12, 76, 70, 52, 8, 32, 53, 38, 67, 31, 52...\n",
+              "Name: ï»¿product, dtype: object"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 8
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "WQInKS3Wf9ro"
+      },
+      "source": [
+        ""
+      ],
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
